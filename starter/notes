@@ -1,0 +1,26 @@
+# Docker Hardening
+
+Stride Model:
+
+
+
+```shell
+# 1. Build Docker file
+docker build . -t opensuse/leap:latest
+
+# 2. Fix 5.10 - Prevent Denial of Service
+docker build . -t opensuse/leap:latest  -m 256mb --no-cache=true 
+
+# 1.1.2 - Ensure auditing is configured for Docker files and directories - OK - Non Repudiation
+
+# 2.2.b - Ensure Log Leval is set to Info - Tampering
+deamon.json
+
+# 2.17.b Containers are restricted from aquiring new privilegies - Privilegie Scalation
+
+
+
+
+
+
+```
