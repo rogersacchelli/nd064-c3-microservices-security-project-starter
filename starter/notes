@@ -23,7 +23,36 @@ deamon.json
 ## Control Plane
 ```shell
 
-# Command to kube-bench on control
+# Start kube-bench container on cluster
 docker run --pid=host -v /etc:/node/etc:ro -v /var:/node/var:ro -ti rancher/security-scan:v0.2.2 bash
+
+# Run kube for Control Plane
+kube-bench run --targets etcd,master,controlplane,policies --scored --config-dir=/etc/kube-bench/cfg --benchmark rke-cis-1.6-hardened | grep FAIL
+
+# [FAIL] 1.1.12 Ensure that the etcd data directory ownership is set to etcd:etcd (Automated)
+groupadd --gid 52034 etcd
+useradd --comment "etcd service account" --uid 52034 --gid 52034 etcd
+chown etcd:etcd /var/lib/etcd
+
+docker run --pid=host -v /etc/passwd:/etc/passwd -v /etc/group:/etc/group -v /etc:/node/etc:ro -v /var:/node/var:ro -ti rancher/security-scan:v0.2.2 bash
+
+kube-bench run --targets etcd --scored --config-dir=/etc/kube-bench/cfg --benchmark rke-cis-1.6-hardened | grep FAIL
+
+
+```
+
+# App
+
+```shell
+AIOHTTP_SESSION 214db7397b9648c1ac23d1e428531a02
+
+aiohttp  3.5.3      3.8.5     python  GHSA-45c4-8wx5-qw6w  Medium
+aiohttp  3.5.3      3.7.4     python  GHSA-v6wp-4m6f-gcjg  Low
+jinja2   2.10       2.10.1    python  GHSA-462w-v97r-4m45  High
+jinja2   2.10       2.11.3    python  GHSA-g3rq-g295-4j3m  Medium
+pyyaml   3.13       4.1       python  GHSA-rprw-h62v-c2w7  Critical
+pyyaml   3.13       5.4       python  GHSA-8q59-q68h-6hv4  Critical
+pyyaml   3.13       5.3.1     python  GHSA-6757-jp84-gxfx  Critical
+
 
 ```
