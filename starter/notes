@@ -2,8 +2,6 @@
 
 Stride Model:
 
-
-
 ```shell
 # 1. Build Docker file
 docker build . -t opensuse/leap:latest
@@ -18,9 +16,14 @@ deamon.json
 
 # 2.17.b Containers are restricted from aquiring new privilegies - Privilegie Scalation
 
+```
 
+# Kubernetes Hardening
 
+## Control Plane
+```shell
 
-
+# Command to kube-bench on control
+docker run --pid=host -v /etc:/node/etc:ro -v /var:/node/var:ro -ti rancher/security-scan:v0.2.2 bash
 
 ```
