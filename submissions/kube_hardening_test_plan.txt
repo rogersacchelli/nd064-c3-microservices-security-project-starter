@@ -1,0 +1,13 @@
+1. How you will test the changes
+Changes can be tested during development and building using tools such Grype to verify vulnerabilties at container layer level.
+At the cluster level, kube-bench can be deployed to verify vulnerabilties against industry standards with different types of profiles
+like hardened profile. Kube-Bench evaluates both control plane and data plane of pods.
+
+Tests should be done at the appropriate environment to prevent errors on production environment.
+
+
+2. How you will ensure the changes don't negatively affect your cluster
+
+CI/CD pipeline can prevent unintented changes to damage cluster stability.
+Automation can test the changes verified on the code and deliver a test report 
+for every build. In addition multiple environments can be set like Development, Testing and Stagging. 

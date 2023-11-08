@@ -1,0 +1,21 @@
+1.Incident commander name
+  * Roger Sacchelli
+
+2.Executive summary of what happened
+   * High CPU because of cryptomining attack with three pods
+    running moneropool, minergate, and unirversal cryptonight.
+
+3.Summary of what was affected
+   * The attacker was able to get control of the cluster and run these containers on the cluster. 
+   * Attackers are after compute resources to abuse for crypto-mining.  
+   
+4.Summary of the impact
+  * Due to absence of limits, PODs starved cluster capacity affecting all services.
+
+5.Summary of the remediation steps
+   * Administrator can kill the pod.
+   * Verify on Grafana if CPU load decreases.
+
+6.Summary of lessons learned
+    * Restrict access to Kubernetes API Server.
+    * Prevent use of unverified images to be deployed.

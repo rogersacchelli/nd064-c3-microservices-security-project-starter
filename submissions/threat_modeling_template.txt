@@ -1,0 +1,34 @@
+# Docker Attack Surfaces
+
+    * Spoofing - Hackers can upload phished docker images and trick developers into using them.
+    * Tampering - Attacker changes an image stored in a registry without changing its associated metadata. Check Docker registry in order to mitigate.
+    * Repudiation - Application or system does not have proper controls to track and log users’ activity. Docker host is the attack surface (/etc/docker/daemon.json).
+    * Denial of Service - Can occur if image runs without appropriate limits, causing starvation of host resouce. Docker host is the attack surface (/etc/docker/daemon.json).
+    * Elevation of Privilege - By running a misconfigured image without appropriate restrictions, user can take use of acquired privilegies to run non desired commands.
+
+# Kubernetes Attack Surfaces
+    * Spoofing - Unauthorized Access to API Server must be prevented to avoid such vulnerabilty.
+    * Tampering - Access to etcd can lead to attacker change key values causing severe harm to the system.
+    * Repudiation - Unauthorized changes can be made to kubelet. To avoid this, kubelet authentication should be TLS and weak/ basic auth should not be allowed.
+    * Denial of Service - Absence of resources to run demanded functions. Running PODs without limits can cause cluster starvation. API Server is an obvious attack surface.
+    * Elevation of Privilege - Can be obtained through kubelet. To prevent this, use of Resource Based Admission Control can mitigate such vulnerabilty.
+
+
+# Docker Hardening
+
+## Denial of Service
+    * Fix 5.10 - Prevent Denial of Service
+    * docker build . -t opensuse/leap:latest  -m 256mb --no-cache=true 
+
+## Non Repudiation
+    * Fix 1.1.2 - Ensure auditing is configured for Docker files and directories
+
+## Tampering
+    * Ensure Log Leval is set to Info
+    * Configuration applied at deamon.json
+
+## Privilegie Scalation
+    * Fix 2.17.b Containers are restricted from aquiring new privilegies
+    * Configuration applied at deamon.json
+
+# Kube Hardening
